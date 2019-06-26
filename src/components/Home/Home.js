@@ -10,15 +10,15 @@ class Home extends React.Component {
       <div className="Home">
         <div className="row">
           <div className="col">
-      <Inventory />
-      </div>
-      <div className="col">
-      <NewOrder />
-      </div>
-      <div className="col">
-      <Orders />
-      </div>
-      </div>
+             <Inventory />
+          </div>
+          <div className="col">
+              <NewOrder />
+          </div>
+          <div className="col">
+              <Orders />
+          </div>
+        </div>
       </div>
     );
   }
