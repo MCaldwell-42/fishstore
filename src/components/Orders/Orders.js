@@ -1,24 +1,21 @@
+
 import React from 'react';
-import firebase from 'firebase/app';
-import 'firebase/auth';
-import ordersData from '../../helpers/data/ordersData';
+import PropTypes from 'prop-types';
+
+import orderShapes from '../../helpers/propz/orderShapes';
 import OrderRow from '../OrderRow/OrderRow';
+
 import './Orders.scss';
 
 class Orders extends React.Component {
-  state = {
-    orders: [],
-  }
-
-  componentDidMount() {
-    ordersData.getMyOrders(firebase.auth().currentUser.uid)
-      .then(orders => this.setState({ orders }))
-      .catch(err => console.error('cant get orders!', err));
+  static propTypes = {
+    orders: PropTypes.arrayOf(orderShapes.orderShape),
+    deleteOrder: PropTypes.func.isRequired,
   }
 
   render() {
-    const orderComponents = this.state.orders.map(order => (
-      <OrderRow key={order.id} order={order}/>
+    const orderComponents = this.props.orders.map(order => (
+      <OrderRow key={order.id} order={order} deleteOrder={this.props.deleteOrder}/>
     ));
 
     return (
@@ -27,7 +24,7 @@ class Orders extends React.Component {
         <table className="table">
           <thead>
             <tr>
-              <th scope="col">Order #</th>
+              <th scope="col">Order Name</th>
               <th scope="col">Date</th>
               <th scope="col"># Fish</th>
               <th scope="col"></th>
