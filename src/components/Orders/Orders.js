@@ -1,3 +1,4 @@
+
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -10,11 +11,13 @@ class Orders extends React.Component {
   static propTypes = {
     orders: PropTypes.arrayOf(orderShapes.orderShape),
     deleteOrder: PropTypes.func.isRequired,
+    selectOrderToEdit: PropTypes.func.isRequired,
   }
 
   render() {
-    const orderComponents = this.props.orders.map(order => (
-      <OrderRow key={order.id} order={order} deleteOrder={this.props.deleteOrder} selectOrderToEdit={this.props.selectedOrderToEdit}/>
+    const { orders, deleteOrder, selectOrderToEdit } = this.props;
+    const orderComponents = orders.map(order => (
+<OrderRow key={order.id} order={order} deleteOrder={deleteOrder} selectOrderToEdit={selectOrderToEdit}/>
     ));
 
     return (

@@ -1,10 +1,23 @@
+
 import React from 'react';
+
+import PropTypes from 'prop-types';
+
+import fishShapes from '../../helpers/propz/fishShapes';
 import format from '../../helpers/format';
 
 import './NewOrder.scss';
 
 class NewOrder extends React.Component {
-  state = {
+  static propTypes = {
+    fishes: PropTypes.arrayOf(fishShapes.fishShape),
+    fishOrder: PropTypes.object.isRequired,
+    orderEditing: PropTypes.object.isRequired,
+    removeFromOrder: PropTypes.func.isRequired,
+    saveNewOrder: PropTypes.func.isRequired,
+  }
+
+  state={
     orderName: '',
   }
 
@@ -14,10 +27,10 @@ class NewOrder extends React.Component {
     }
   }
 
-nameChange = (e) => {
-  e.preventDefault();
-  this.setState({ orderName: e.target.value });
-}
+  nameChange = (e) => {
+    e.preventDefault();
+    this.setState({ orderName: e.target.value });
+  }
 
   renderOrder = (key) => {
     const fish = this.props.fishes.find(x => x.id === key);
@@ -41,8 +54,6 @@ nameChange = (e) => {
         <div className="col-2">
           <button className="btn btn-outline-dark" onClick={xClickFunction}>X</button>
         </div>
-
-
       </li>
     );
   };
@@ -67,10 +78,10 @@ nameChange = (e) => {
     return (
       <div className="NewOrder">
         <h1>{Object.keys(orderEditing).length > 1 ? 'Edit Order' : 'New Order'}</h1>
-       {Object.keys(orderEditing).length > 1 ? (<h2>Order id: {orderEditing.id}</h2>) : ''}
+        {Object.keys(orderEditing).length > 1 ? (<h2>Order id: {orderEditing.id}</h2>) : ''}
         <form className='col-6 offset-3'>
           <div className="form-group">
-            <label htmlFor="order-name">Order Name:</label>
+            <label htmlFor="order-name"><h4>Order Name:</h4></label>
             <input
               type="text"
               className="form-control"
